@@ -1,0 +1,7 @@
+{
+  "name": "theraque",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
