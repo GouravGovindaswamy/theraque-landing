@@ -1,0 +1,68 @@
+<!--<ion-menu side="end" content-id="main-content" *ngIf="!desktopFlag" >
+  <ion-header>
+    <ion-toolbar translucent>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label>Inbox</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="paper-plane" slot="start"></ion-icon>
+        <ion-label>Outbox</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="heart" slot="start"></ion-icon>
+        <ion-label>Favorites</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="archive" slot="start"></ion-icon>
+        <ion-label>Archived</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="trash" slot="start"></ion-icon>
+        <ion-label>Trash</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="warning" slot="start"></ion-icon>
+        <ion-label>Spam</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content" *ngIf="!desktopFlag">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Theraque Logo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>
+-->
+<div id="main-content" *ngIf="desktopFlag" style="position:sticky">
+  <ion-header class="ion-no-border navbar">
+    <ion-toolbar>
+      <div class="headerClass">
+        <ion-title class="brand-font-one">theraque<span class="brand-font-two">health</span></ion-title>
+        <ion-button class="menuButton" (click)="scroll('aboutUs')">
+          <h2 class="menusFont">About Us</h2>
+        </ion-button>
+        <ion-button class="menuButton">
+          <h2 class="menusFont">Our Leaders</h2>
+        </ion-button>
+        <ion-button class="menuButton">
+          <h2 class="menusFont">Pricing </h2>
+        </ion-button>
+        <ion-button class="menuButton">
+          <h2 class="menusFont">Contact Us</h2>
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+</div>

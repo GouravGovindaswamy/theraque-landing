@@ -1,20 +1,307 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="main" id="main" [scrollEvents]="true" (ionScroll)="onScroll($event)">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- MENU -->
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-menu side="start" content-id="main-content" *ngIf="!desktopFlag">
+      <ion-header>
+          <ion-toolbar style=" --background: white;margin-top: 10px;" translucent>
+              <ion-title size="large" style="font-size: 25px;text-align: center;font-family: 'Comfortaa';font-weight:bold; color: #97b56e;">theraque<span style="font-size: 25px;font-family: 'Comfortaa';font-weight:bold; color: #868685;"></span>health</ion-title>
+          </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <ion-list>
+              <ion-item  (click)="scroll('aboutUs')">
+                  <ion-icon name="book-outline" slot="start" style="padding-top:30px"></ion-icon>
+                  <ion-label style="font-family: 'comfortaa'; font-weight: bold; padding-top:30px">About Us</ion-label>
+              </ion-item>
+              <ion-item  (click)="scroll('leaders')">
+                  <ion-icon name="people-outline" slot="start" style="padding-top:30px"></ion-icon>
+                  <ion-label style="font-family: 'comfortaa'; font-weight: bold; padding-top:30px">Our Leaders</ion-label>
+              </ion-item>
+              <ion-item (click)="scroll('pricing')">
+                  <ion-icon name="star-outline" slot="start" style="padding-top:30px"></ion-icon>
+                  <ion-label style="font-family: 'comfortaa'; font-weight: bold; padding-top:30px" >Subscription</ion-label>
+              </ion-item>
+              <ion-item (click)="scroll('contact')">
+                  <ion-icon name="send-outline" slot="start" style="padding-top:30px"></ion-icon>
+                  <ion-label style="font-family: 'comfortaa'; font-weight: bold; padding-top:30px">Contact Us</ion-label>
+              </ion-item>
+          </ion-list>
+      </ion-content>
+
+  </ion-menu>
+  <div id="main-content" *ngIf="!desktopFlag">
+      <div style="position: sticky;top: 0;left: 0;right: 0;z-index: 9999;">
+          <ion-header class="ion-no-border navbar">
+
+              <ion-toolbar style="--background:white;">
+                  <ion-progress-bar type="determinate" [value]="progressValue" *ngIf="showProgress">
+                  </ion-progress-bar>
+                  <ion-buttons slot="start">
+                      <ion-menu-button style="--color:#97b56e;"></ion-menu-button>
+                  </ion-buttons>
+              </ion-toolbar>
+          </ion-header>
+      </div>
   </div>
+  <div style="position: sticky;top: 0;left: 0;right: 0;z-index: 9999;" *ngIf="desktopFlag">
+      <div id="main-content" style="position:sticky">
+          <ion-header class="ion-no-border navbar">
+              <ion-toolbar>
+                  <div class="headerClass">
+                      <ion-title class="brand-font-one">theraque<span class="brand-font-two">health</span></ion-title>
+                      <ion-button class="menuButton" (click)="scroll('aboutUs')">
+                          <h2 class="menusFont">About Us</h2>
+                      </ion-button>
+                      <ion-button class="menuButton" (click)="scroll('leaders')">
+                          <h2 class="menusFont">Our Leaders</h2>
+                      </ion-button>
+                      <ion-button class="menuButton">
+                          <h2 class="menusFont" (click)="scroll('pricing')">Subscription</h2>
+                      </ion-button>
+                      <ion-button class="menuButton">
+                          <h2 class="menusFont" (click)="scroll('contact')">Contact Us</h2>
+                      </ion-button>
+                  </div>
+              </ion-toolbar>
+          </ion-header>
+          <ion-progress-bar type="determinate" [value]="progressValue" *ngIf="showProgress"></ion-progress-bar>
+      </div>
+  </div>
+
+  <!-- Main Banner -->
+
+  <ion-grid>
+      <ion-row class="bannerRow">
+          <ion-col class="bannerTextCol">
+              <div>
+                  <p class="bannerText"><span class="textmap" style="color:#8ca961;font-size:40px;">Theraque is the
+                          only holistic care model operating in a telehealth setting.
+                          <br /><br /></span> <span class="textmap"
+                          style="color:black; font-size: 25px; line-height: 1.5;"> Theraque is bringing evidence-based
+                          practice to the forefront and putting the patient’s whole health and quality of life as a
+                          priority</span>
+                  </p>
+                  <ion-button shape="round" style="--background:#97b56e" (click)="scroll('services')">Know More<ion-icon
+                          style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                  </ion-button>
+              </div>
+          </ion-col>
+          <ion-col class="bannerImgCol" *ngIf="desktopFlag">
+              <ion-img class="bannerImg" src="../../assets/images/logo.png"></ion-img>
+          </ion-col>
+      </ion-row>
+      <div>
+
+      </div>
+      <div class="services" #servicesApp *ngIf="desktopFlag" id="services">
+          <h1 class="aboutUsHeading">Services We Offer</h1>
+          <app-theraque-services></app-theraque-services>
+      </div>
+      <div *ngIf="!desktopFlag" style="margin-top:70px;" id="services">
+          <h1 class="aboutUsHeading">Services We Offer</h1>
+          <ion-content class="coreTeamContent" style="height:270px;">
+              <swiper #swiper [config]="config">
+                  <ng-template swiperSlide>
+                      <div >
+                          <ion-img style="margin-left:20px; margin-right:20px; border-radius: 10%;" src="../../assets/images/services/telehealth.png"></ion-img>
+                      </div>
+                  </ng-template>
+                  <ng-template swiperSlide>
+                      <div >
+                          <ion-img style="margin-left:20px; margin-right:20px; border-radius: 10%;" src="../../assets/images/services/grouptherapy.png"></ion-img>
+                      </div>
+                  </ng-template>
+                  <ng-template swiperSlide>
+                      <div >
+                          <ion-img style="margin-left:20px; margin-right:20px; border-radius: 10%;" src="../../assets/images/services/community.png"></ion-img>
+                      </div>
+                  </ng-template>
+                  <ng-template swiperSlide>
+                      <div >
+                          <ion-img style="margin-left:20px; margin-right:20px; border-radius: 10%;" src="../../assets/images/services/theracubes.png"></ion-img>
+                      </div>
+                  </ng-template>
+              </swiper>
+          </ion-content>
+      </div>
+  </ion-grid>
+
+  <!-- Mission and Vision -->
+
+  <ion-grid>
+      <div>
+
+          <div #missionvision class="missionHeading">
+              <h1 class="aboutUsHeading">Our Mission and Vision</h1>
+          </div>
+          <div #missionOne class="missionTextDiv">
+              <ion-img *ngIf="desktopFlag" class="leafLeft" src="../../assets/images/leafsvg.svg"></ion-img>
+              <p class="missionText">The mission of Theraque is to provide access to care that is
+                  accessible, affordable, effectively changing the lives of
+                  patients and redefining the healthcare system with a vision
+                  to eliminate long-held societal beliefs on what healthcare is
+                  and the isolation of mental illness to overall quality of life.</p>
+              <ion-img *ngIf="desktopFlag" class="leafRight" src="../../assets/images/leafsvg.svg"></ion-img>
+          </div>
+          <!-- <ion-row justify-content-center align-items-center>
+              <ion-col>
+                  <div #missionOne class="missionvision">
+                      <ion-img src="../../assets/images/mission and vision/mission.png"></ion-img>
+                  </div>
+              </ion-col> 
+          </ion-row> -->
+      </div>
+  </ion-grid>
+
+  <!-- A to Z in Mental Health -->
+
+  <ion-grid>
+      <div class="aboutUs" id="aboutUs" (appear)="functionToTriggerOnScroll('aboutUs')" #aboutUs>
+          <div style="margin-top:10px">
+              <h1 class="aboutUsHeading">A to Z in Mental Health</h1>
+          </div>
+          <div class="aboutUsTextDiv">
+              <p class="aboutUsText">Theraque is the only robust holistic care model in the world operating in a
+                  telehealth setting.Theraque is bringing evidence-based biopsychosocial practices to the forefront
+                  and emphasizing the importance of integrative mental wellness. As a Theraque provider, you will be
+                  granted access to our distinctive internal referral system. You will have access to patient
+                  advocates who are properly trained to assess the health and social needs of your patients, a wide
+                  array of mental health providers, nutritionists, and consulting specialists..</p>
+              <p class="aboutUsText">At theraque, we are becoming increasingly involved in the community and
+                  supporting the positive development of our children. We can treat a whole patient, but we can’t
+                  change society without ensuring future generations of children are properly cared for as well. We
+                  will be sharing our partner Erin Royer’s platform and educational resources focused on Erikson’s
+                  theory of ages and stages of development to ensure we can complete our mission to create a healthy,
+                  thriving next generation.</p>
+          </div>
+      </div>
+      <div style="margin-top:10px; margin-bottom: 25px; align-items: center;">
+          <h1 class="aboutUsHeading">How we work</h1>
+      </div>
+      <div class="chart">
+          <img class="chartImg" src="../../assets/images/working.jpg" />
+          <p class="chartText">The focus of Theraque is our patient centered model. To achieve this, we
+              have created a holistic care model that addresses the needs of patients, and eliminates siloed health
+              treatments to improve the overall health of our patients. Through the Theraque platform, we offer
+              bespoke evidence-based practice tailored to the specific needs of the patient.
+          </p>
+      </div>
+  </ion-grid>
+  <br />
+  <br />
+
+  <!-- Core Team -->
+
+  <div style="margin-top:10px; margin-bottom: 25px;">
+      <h1 class="aboutUsHeading">The Core Team</h1>
+  </div>
+  <ion-content class="coreTeamContent">
+      <swiper #swiper [config]="config" id="leaders">
+          <ng-template swiperSlide>
+              <ion-card class="peopleCards">
+                  <div class="peopleImg">
+                      <img src="../../assets/images/people slides/dp/4.jpg" />
+                  </div>
+                  <ion-card-header class="peopleCardHeader">
+                      <ion-card-subtitle class="coreTitle">CEO</ion-card-subtitle>
+                      <ion-card-title class="coreName">Amber Wysocki</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="bannerContent">
+                      Amber is a technocrat in clinical therapy, medical social work, non-profit organizations, and
+                      social justice.She has years of experience in the healthcare system and legal system.
+                      <ion-button shape="round" class="bannerButton" (click)="openModal('4.jpg')">Read more<ion-icon
+                              style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                      </ion-button>
+                  </ion-card-content>
+              </ion-card>
+          </ng-template>
+          <ng-template swiperSlide>
+              <ion-card class="peopleCards">
+                  <div class="peopleImg">
+                      <img src="../../assets/images/people slides/dp/1.jpg" />
+                  </div>
+                  <ion-card-header class="peopleCardHeader">
+                      <ion-card-subtitle class="coreTitle">Chief Medical Officer</ion-card-subtitle>
+                      <ion-card-title class="coreName">Sameer Hassamal, MD</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="bannerContent">
+                      Dr.Sameer Hassamal is physician scientist board certified in adult psychiatry, addiction
+                      psychiatry, addiction medicine and brain injury<span> medicine</span>
+                      <ion-button shape="round" class="bannerButton" (click)="openModal('1.jpg')">Read more<ion-icon
+                              style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                      </ion-button>
+                  </ion-card-content>
+              </ion-card>
+          </ng-template>
+          <ng-template swiperSlide>
+              <ion-card class="peopleCards">
+                  <div class="peopleImg">
+                      <img src="../../assets/images/people slides/dp/2.jpg" />
+                  </div>
+                  <ion-card-header class="peopleCardHeader">
+                      <ion-card-subtitle class="coreTitle">Medical Board Advisory Member</ion-card-subtitle>
+                      <ion-card-title class="coreName">Anuj Goel, MD, MBA</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="bannerContent">
+                      Dynamic physician leader focused on improving outcomes, treatment sustainability and
+                      transforming health care delivery with 10+ years of experience.
+                      <ion-button shape="round" class="bannerButton" (click)="openModal('2.jpg')">Read more<ion-icon
+                              style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                      </ion-button>
+                  </ion-card-content>
+              </ion-card>
+          </ng-template>
+          <ng-template swiperSlide>
+              <ion-card class="peopleCards">
+                  <div class="peopleImg">
+                      <img src="../../assets/images/people slides/dp/5.jpg" />
+                  </div>
+                  <ion-card-header class="peopleCardHeader">
+                      <ion-card-subtitle class="coreTitle">Advisory Board Member Relationship Expert
+                      </ion-card-subtitle>
+                      <ion-card-title class="coreName">Nancy Fagan</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content class="bannerContent">
+                      Nancy Fagan is the owner and founder of Fairy Good Heart™ and previous owner of one of the most
+                      successful divorce mediation firms in San Diego, CA.
+                      <ion-button shape="round" class="bannerButton" (click)="openModal('5.jpg')">Read more<ion-icon
+                              style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                      </ion-button>
+                  </ion-card-content>
+              </ion-card>
+          </ng-template>
+      </swiper>
+  </ion-content>
+
+  <!-- Subscription -->
+
+  <div class="subDiv" #subscription>
+      <h1 class="subHeadingMain">Join our Team of Practicing Providers</h1>
+  </div>
+  <div>
+      <div class="subTextDiv">
+          <p class="subUsText">We are looking for Licensed Mental Health Providers who can practice Clinical Therapy,
+              Psychiatrists, Nutritionists/ Dieticians, consulting general healthcare providers</p>
+      </div>
+      <div class="subBoxTextDiv" id="pricing">
+          <ion-img *ngIf="desktopFlag" class="subLeft" src="../../assets/images/subsvg.svg"></ion-img>
+          <div class="subBoxRightDiv">
+              <h1 class="subHeading">Let's change the healthcare industry</h1>
+              <p class="subInsideText">The mission of Theraque is to provide access to care that is
+                  accessible, affordable, effectively changing the lives of
+                  patients and redefining the healthcare system with a vision
+                  to eliminate long-held societal beliefs on what healthcare is
+                  and the isolation of mental illness to overall health.</p>
+              <ion-img *ngIf="!desktopFlag" class="subImg" src="../../assets/images/subsvg.svg"></ion-img>
+              <div class="subButton">
+                  <ion-button shape="round" class="subBuy" (click)="subscribe('yearly')">Subscribe<ion-icon
+                          style="padding-left: 10px;" name="arrow-forward-outline"></ion-icon>
+                  </ion-button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <app-footer></app-footer>
 </ion-content>
